@@ -13,7 +13,7 @@ export default function Home() {
   const fetchHeartRateData = async () => {
     try {
       const response = await fetch(
-        'https://api.fitbit.com/1/user/-/activities/heart/date/today/today/1min.json',
+        'https://api.fitbit.com/1/user/-/activities/heart/date/2024-03-09/2024-03-09/1min.json',
         {
           headers: {
             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1JTQ0ciLCJzdWIiOiI2TDZYV1YiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJudXQgcnBybyByc2xlIHJjZiByYWN0IHJsb2MgcnJlcyByd2VpIHJociBydGVtIiwiZXhwIjoxNzEwMDUzNDM1LCJpYXQiOjE3MTAwMjQ2MzV9.Vv4jvGSoBHz6fsPR_WhlOXWO6_YnLd8gA0XVTrQ0TW4'
@@ -37,26 +37,25 @@ export default function Home() {
     }
   };
 
+  
+  const fetchTargetSong = async () => {
+    let apiUrl = "http://127.0.0.1:5000?heartRate=" + heartRate
+    try {
+      console.log(heartRate)
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error('Failed to fetch target song');
+      }
+      const data = await response.json();
+      // let tempSelectedSong = data.selectedMp3
+        setSelectedSong(data.selectedMp3)
+    } catch (error) {
+      console.error('Error fetching target song data:', error);
+    }
+  };
+
   const handleSubmitInput = (e) => {
     e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handleSubmitTargetHeartRate = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-    // Here you can implement logic to process the target heart rate input
-  };
-
-  const handleSelectSong = () => {
-    // Here you can implement logic to select a song based on user's heart rate
-    // For now, let's simulate a song selection
-    const simulatedSong = {
-      title: "Song Title",
-      artist: "Artist Name",
-      audioUrl: "song.mp3" // Replace with actual URL of the song
-    };
-    setSelectedSong(simulatedSong);
     setStep(step + 1);
   };
 
@@ -91,7 +90,7 @@ export default function Home() {
                 <p>Your heart rate: <strong>{heartRate}</strong> at <strong>{heartRateTime}</strong></p>
               </div>
             )}
-            <form onSubmit={handleSubmitTargetHeartRate}>
+            <form onSubmit={handleSubmitInput}>
               <label>
                 Enter your target heart rate:
                 <input
@@ -100,7 +99,7 @@ export default function Home() {
                   onChange={(e) => setTargetHeartRate(e.target.value)}
                 />
               </label>
-              <button type="submit">Next</button>
+              <button type="submit" onClick={fetchTargetSong}>Next</button>
             </form>
           </div>
         )}
@@ -109,16 +108,15 @@ export default function Home() {
             <h2>Loading...</h2>
             <p>The neural network is selecting a song for you</p>
             {/* You can add a loading animation here if desired */}
-            <button onClick={handleSelectSong}>Skip</button>
+            <button onClick={handleSubmitInput}>Skip</button>
           </div>
         )}
         {step === 4 && selectedSong && (
           <div>
             <h2>Music</h2>
-            <p>Title: {selectedSong.title}</p>
-            <p>Artist: {selectedSong.artist}</p>
+            <p>Filename: {selectedSong}</p>
             <audio controls>
-              <source src={selectedSong.audioUrl} type="audio/mpeg" />
+              <source src={"/assets/" + selectedSong} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>

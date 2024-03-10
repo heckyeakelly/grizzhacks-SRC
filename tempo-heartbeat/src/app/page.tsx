@@ -13,10 +13,10 @@ export default function Home() {
   const fetchHeartRateData = async () => {
     try {
       const response = await fetch(
-        'https://api.fitbit.com/1/user/-/activities/heart/date/2024-03-09/2024-03-09/1min.json',
+        'https://api.fitbit.com/1/user/-/activities/heart/date/today/today/1min.json',
         {
           headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1JTQ0ciLCJzdWIiOiI2TDZYV1YiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJudXQgcnBybyByc2xlIHJjZiByYWN0IHJsb2MgcnJlcyByd2VpIHJociBydGVtIiwiZXhwIjoxNzEwMDUzNDM1LCJpYXQiOjE3MTAwMjQ2MzV9.Vv4jvGSoBHz6fsPR_WhlOXWO6_YnLd8gA0XVTrQ0TW4'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1JTQ0ciLCJzdWIiOiI2TDZYV1YiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJudXQgcnBybyByc2xlIHJjZiByYWN0IHJyZXMgcmxvYyByd2VpIHJociBydGVtIiwiZXhwIjoxNzEwMTEwMzUxLCJpYXQiOjE3MTAwODE1NTF9.R3duNLUODHIwoIthtNKKTFe_guS1Zy-2Imc65YIWa78'
           }
         }
       );
@@ -41,14 +41,13 @@ export default function Home() {
   const fetchTargetSong = async () => {
     let apiUrl = "http://127.0.0.1:5000?heartRate=" + heartRate + "&targetHeartRate=" + targetHeartRate
     try {
-      console.log(heartRate)
       const response = await fetch(apiUrl);
       if (!response.ok) {
         throw new Error('Failed to fetch target song');
       }
       const data = await response.json();
-      // let tempSelectedSong = data.selectedMp3
-        setSelectedSong(data.selectedMp3)
+      // console.log(data.returnedSong)
+        setSelectedSong(data.returnedSong)
     } catch (error) {
       console.error('Error fetching target song data:', error);
     }
@@ -103,15 +102,15 @@ export default function Home() {
             </form>
           </div>
         )}
-        {step === 3 && (
+        {step === 3 && !selectedSong && (
           <div>
             <h2>Loading...</h2>
             <p>The neural network is selecting a song for you</p>
             {/* You can add a loading animation here if desired */}
-            <button onClick={handleSubmitInput}>Skip</button>
+            {/* <button onClick={handleSubmitInput}>Skip</button> */}
           </div>
         )}
-        {step === 4 && selectedSong && (
+        {step === 3 && selectedSong && (
           <div>
             <h2>Music</h2>
             <p>Filename: {selectedSong}</p>

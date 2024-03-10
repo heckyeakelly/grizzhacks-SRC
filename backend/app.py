@@ -32,7 +32,7 @@ def process_heart_rate():
         print(returnedSong)
 
         # Return the selected MP3 file as a response
-        return jsonify(returnedSong), 200
+        return jsonify({"returnedSong" : returnedSong}), 200
     except ValueError:
         return jsonify({'error': 'Invalid heart rate value. It should be a number.'}), 400
     except Exception as e:

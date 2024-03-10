@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import './App.css'; // Include your CSS file for styling
+"use client"; 
 
-function App() {
+import { useState } from 'react';
+import './page.module.css'; // Include your CSS file for styling
+
+export default function Home() {
   const [step, setStep] = useState(1);
   const [heartRateTime, setHeartRateTime] = useState(null)
   const [heartRate, setHeartRate] = useState(null);
@@ -128,5 +130,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -39,7 +39,7 @@ export default function Home() {
 
   
   const fetchTargetSong = async () => {
-    let apiUrl = "http://127.0.0.1:5000?heartRate=" + heartRate
+    let apiUrl = "http://127.0.0.1:5000?heartRate=" + heartRate + "&targetHeartRate=" + targetHeartRate
     try {
       console.log(heartRate)
       const response = await fetch(apiUrl);

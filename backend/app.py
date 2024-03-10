@@ -24,7 +24,7 @@ def process_heart_rate():
 
         # target heart rate, temporarily hardcoded
         
-        target_heart_rate = 90
+        target_heart_rate = int(request.args.get('targetHeartRate'))
     
 
         # For demonstration purposes, let's randomly choose an MP3 file

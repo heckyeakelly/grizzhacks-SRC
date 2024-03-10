@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <div className={styles.mainContent}>
       <header className={styles.header}>
-        <h1>Placeholder Team Name</h1>
+        <h1>HarmonAIze</h1>
       </header>
       <main>
         {step === 1 && (

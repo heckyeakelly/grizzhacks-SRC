@@ -3,7 +3,7 @@
 .header {
   background-color: navy;
   color: white;
-  padding: 20px 0;
+  padding: 20px 20%
 }
 
 .footer {
@@ -30,4 +30,3 @@
 .heart-rate-display {
   margin-bottom: 20px;
 }
-

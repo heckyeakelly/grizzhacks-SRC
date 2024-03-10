@@ -1,7 +1,7 @@
 "use client"; 
 
 import { useState } from 'react';
-import './page.module.css'; // Include your CSS file for styling
+import styles from './page.module.css'; // Include your CSS file for styling
 
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -60,8 +60,8 @@ export default function Home() {
   };
 
   return (
-    <div className="App">
-      <header>
+    <div className={styles.mainContent}>
+      <header className={styles.header}>
         <h1>Placeholder Team Name</h1>
       </header>
       <main>
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         )}
       </main>
-      <footer>
+      <footer className={styles.footer}>
         <p>Kelly, May, Nipun, and Parthiv for GrizzHacks 2024</p>
       </footer>
     </div>

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-import heart_rate_processor
+import UseTheModel
 import random
 
 app = Flask(__name__)
@@ -22,11 +22,13 @@ def process_heart_rate():
         # Get heart rate from the query parameters
         heart_rate = int(request.args.get('heartRate'))
 
-        # Call the heart rate processor function
-        processed_data = heart_rate_processor.process(heart_rate)
+        # target heart rate, temporarily hardcoded
+        
+        target_heart_rate = 90
+    
 
         # For demonstration purposes, let's randomly choose an MP3 file
-        selected_mp3 = random.choice(MP3_FILES)
+        selected_mp3 = UseTheModel.useModel(heart_rate, target_heart_rate, './trained_model.pth', MP3_FILES, './Data.csv')
 
         # Return the selected MP3 file as a response
         return jsonify({'selectedMp3': selected_mp3}), 200

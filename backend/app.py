@@ -22,16 +22,17 @@ def process_heart_rate():
         # Get heart rate from the query parameters
         heart_rate = int(request.args.get('heartRate'))
 
-        # target heart rate, temporarily hardcoded
+        # target heart rate
         
         target_heart_rate = int(request.args.get('targetHeartRate'))
     
 
         # For demonstration purposes, let's randomly choose an MP3 file
-        selected_mp3 = UseTheModel.useModel(heart_rate, target_heart_rate, './trained_model.pth', MP3_FILES, './Data.csv')
+        returnedSong = UseTheModel.useModel(heart_rate, target_heart_rate, MP3_FILES, './Data.csv')
+        print(returnedSong)
 
         # Return the selected MP3 file as a response
-        return jsonify({'selectedMp3': selected_mp3}), 200
+        return jsonify(returnedSong), 200
     except ValueError:
         return jsonify({'error': 'Invalid heart rate value. It should be a number.'}), 400
     except Exception as e:

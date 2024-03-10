@@ -124,6 +124,7 @@ export default function Home() {
       </main>
       <footer className={styles.footer}>
         <p>Kelly, May, Nipun, and Parthiv for GrizzHacks 2024</p>
+        <p>NextJS, CSS, TypeScript, Flask, Python, Pytorch</p>
       </footer>
     </div>
   );
